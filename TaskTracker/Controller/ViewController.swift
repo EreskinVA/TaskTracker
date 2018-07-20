@@ -100,9 +100,10 @@ class ViewController: UIViewController {
             
             print(minute)
             for index in 1..<oldArray.count {
-                let minute2 = oldArray[index].date.timeIntervalSince(currentDate) / 60
-                print(minute2,"   -   ",minute)
-                if minute2 > minute {
+                var minute2 = oldArray[index].date.timeIntervalSince(currentDate) / 60                
+                minute2 = abs(minute2)
+                minute = abs(minute)
+                if minute2 < minute {
                     minute = minute2
                     arrayTask[0] = oldArray[index]
                 }
