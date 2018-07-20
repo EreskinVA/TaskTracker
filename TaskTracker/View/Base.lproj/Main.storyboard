@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,12 +54,23 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwv-uI-cTx">
-                                                            <rect key="frame" x="215.5" y="17" width="131.5" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8qn-HZ-js7">
+                                                            <rect key="frame" x="215.5" y="6.5" width="131.5" height="37"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwv-uI-cTx">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="131.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sz-8X-b3W">
+                                                                    <rect key="frame" x="0.0" y="21" width="131.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -71,6 +83,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="comment" destination="Y6m-pE-vCT" id="Zju-kU-cMt"/>
+                                            <outlet property="date" destination="3sz-8X-b3W" id="LKl-In-2du"/>
                                             <outlet property="status" destination="xwv-uI-cTx" id="1Sd-68-YPe"/>
                                             <outlet property="title" destination="N06-7A-ueB" id="s7H-bk-ukC"/>
                                             <segue destination="4Iu-Cf-4ns" kind="show" identifier="editSegue" id="Fuc-Qt-7Q0"/>
@@ -152,12 +165,19 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Трекер задач" id="M7N-gC-Rci">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="n0f-tq-m0w">
-                            <connections>
-                                <action selector="addTask:" destination="BYZ-38-t0r" id="96B-Jb-sWa"/>
-                                <segue destination="RKp-4A-OLA" kind="presentation" identifier="newTask" id="s65-vt-SsL"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="n0f-tq-m0w">
+                                <connections>
+                                    <action selector="addTask:" destination="BYZ-38-t0r" id="96B-Jb-sWa"/>
+                                    <segue destination="RKp-4A-OLA" kind="presentation" identifier="newTask" id="s65-vt-SsL"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="search" id="C1M-j1-eJo">
+                                <connections>
+                                    <action selector="nearestDate:" destination="BYZ-38-t0r" id="9Md-xK-9lY"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="endFilterButton" destination="yxN-xc-CB7" id="Dlw-Ln-HJ8"/>
@@ -179,7 +199,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="t6C-nO-bZm">
-                                <rect key="frame" x="16" y="64" width="343" height="395.5"/>
+                                <rect key="frame" x="16" y="64" width="343" height="555"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="f6J-PR-DJs">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="65.5"/>
@@ -203,8 +223,33 @@
                                             <constraint firstItem="RQJ-iy-G7V" firstAttribute="leading" secondItem="f6J-PR-DJs" secondAttribute="leading" id="dPZ-pR-dYT"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="GGb-kx-VVF">
+                                        <rect key="frame" x="0.0" y="89.5" width="343" height="135.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата выполнения" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgo-uW-HxZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="rox-y0-aVi">
+                                                <rect key="frame" x="0.0" y="35.5" width="343" height="100"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="XaC-UX-7kI"/>
+                                                </constraints>
+                                                <date key="date" timeIntervalSinceReferenceDate="553735159.64236701">
+                                                    <!--2018-07-19 23:19:19 +0000-->
+                                                </date>
+                                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                                    <!--1970-01-01 11:00:00 +0000-->
+                                                </date>
+                                                <locale key="locale" localeIdentifier="ru_RU"/>
+                                            </datePicker>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ced-Ru-Vx7">
-                                        <rect key="frame" x="0.0" y="89.5" width="343" height="218.5"/>
+                                        <rect key="frame" x="0.0" y="249" width="343" height="218.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комментарий" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYm-Vx-Rhn">
                                                 <rect key="frame" x="112" y="0.0" width="119.5" height="20.5"/>
@@ -229,7 +274,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="aKb-sI-ZnL">
-                                        <rect key="frame" x="0.0" y="332" width="343" height="63.5"/>
+                                        <rect key="frame" x="0.0" y="491.5" width="343" height="63.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Статус" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzJ-ex-mUG">
                                                 <rect key="frame" x="142.5" y="0.0" width="58.5" height="20.5"/>
@@ -254,9 +299,11 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="GGb-kx-VVF" secondAttribute="trailing" id="0TZ-9r-Ahq"/>
                                     <constraint firstItem="f6J-PR-DJs" firstAttribute="leading" secondItem="t6C-nO-bZm" secondAttribute="leading" id="FxX-P2-DnW"/>
                                     <constraint firstAttribute="trailing" secondItem="Ced-Ru-Vx7" secondAttribute="trailing" id="GSe-gT-bAy"/>
                                     <constraint firstItem="aKb-sI-ZnL" firstAttribute="leading" secondItem="t6C-nO-bZm" secondAttribute="leading" id="UHW-h9-7vC"/>
+                                    <constraint firstItem="GGb-kx-VVF" firstAttribute="leading" secondItem="t6C-nO-bZm" secondAttribute="leading" id="eTd-pm-1tf"/>
                                     <constraint firstAttribute="trailing" secondItem="aKb-sI-ZnL" secondAttribute="trailing" id="j3y-IT-yuv"/>
                                     <constraint firstItem="Ced-Ru-Vx7" firstAttribute="leading" secondItem="t6C-nO-bZm" secondAttribute="leading" id="k9O-LH-pBk"/>
                                     <constraint firstAttribute="trailing" secondItem="f6J-PR-DJs" secondAttribute="trailing" id="nTW-Li-VF7"/>
@@ -285,6 +332,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="datePicker" destination="rox-y0-aVi" id="4qa-Pi-DF8"/>
                         <outlet property="statusSegmented" destination="yXh-td-53V" id="XjS-QN-MUV"/>
                         <outlet property="textFieldTask" destination="RQJ-iy-G7V" id="5QD-ys-P0n"/>
                         <outlet property="textViewKomment" destination="dqI-13-G3p" id="6Z9-IM-ObC"/>

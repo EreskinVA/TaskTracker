@@ -13,5 +13,6 @@ class TaskCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var comment: UILabel!
     @IBOutlet weak var status: UILabel!
+    @IBOutlet weak var date: UILabel!
     
 }

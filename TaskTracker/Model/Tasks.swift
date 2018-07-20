@@ -18,8 +18,10 @@ struct DefaultsKeys {
     static let tasks = "tasks"
 }
 
+// структура задач
 struct Tasks: Codable {
     var title: String
     var comment: String
     var status: String
+    var date: Date
 }

@@ -62,8 +62,8 @@
 			children = (
 				2B3EA78020FFC76B0074D4B0 /* AppDelegate.swift */,
 				2B3EA79720FFD72F0074D4B0 /* Model */,
-				2B3EA79620FFD7180074D4B0 /* Controller */,
 				2B3EA79420FFD6F60074D4B0 /* View */,
+				2B3EA79620FFD7180074D4B0 /* Controller */,
 				2B3EA79520FFD70D0074D4B0 /* Supporting files */,
 			);
 			path = TaskTracker;

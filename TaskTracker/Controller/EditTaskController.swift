@@ -13,6 +13,7 @@ class EditViewController: UIViewController {
     @IBOutlet weak var textViewKomment: UITextView!
     @IBOutlet weak var textFieldTask: UITextField!
     @IBOutlet weak var statusSegmented: UISegmentedControl!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     var task: Tasks?
     var rowIndexTask: Int?
@@ -29,13 +30,16 @@ class EditViewController: UIViewController {
                 arrayTask = array!
             }
         }
+        
+        // заполнение View
         if textFieldTask.text == "" {
             let alertController = UIAlertController(title: "Ошибка!", message: "Не заполнена задача!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okAction)
             present(alertController, animated: true, completion: nil)
         } else {
-            let newTask = Tasks(title: textFieldTask.text!, comment: textViewKomment.text!, status: statusSegmented.titleForSegment(at: statusSegmented.selectedSegmentIndex)!)
+            let date = datePicker.date
+            let newTask = Tasks(title: textFieldTask.text!, comment: textViewKomment.text!, status: statusSegmented.titleForSegment(at: statusSegmented.selectedSegmentIndex)!, date: date)
             
             if rowIndexTask != nil {
                 arrayTask[rowIndexTask!] = newTask
@@ -63,6 +67,7 @@ class EditViewController: UIViewController {
         
         if task != nil {
             textViewKomment.text = task?.comment
+            datePicker.date = (task?.date)!
             textFieldTask.text = task?.title
             switch task?.status {
             case "Новая": statusSegmented.selectedSegmentIndex = 0
@@ -75,6 +80,7 @@ class EditViewController: UIViewController {
             textFieldTask.text = task?.title
             statusSegmented.selectedSegmentIndex = 0
             statusSegmented.isEnabled = false
+            datePicker.date = Date()
         }
     }
     
