@@ -89,11 +89,14 @@ class ViewController: UIViewController {
         if dateFilter == false {
             oldArray = arrayTask.filter({$0.status != "Завершено"})
             arrayTask.removeAll()
-            arrayTask.append(oldArray[0])
-            
             let currentDate = Date()
-            var minute = oldArray[0].date.timeIntervalSince(currentDate) / 60
-            
+            var minute = 0.0
+            print(oldArray.count)
+            if !oldArray.isEmpty {
+                arrayTask.append(oldArray[0])
+                let currentDate = Date()
+                minute = oldArray[0].date.timeIntervalSince(currentDate) / 60
+            }
             
             print(minute)
             for index in 1..<oldArray.count {
@@ -106,7 +109,7 @@ class ViewController: UIViewController {
             }
             dateFilter = !dateFilter
         } else {
-            arrayTask = oldArray
+            laodUserDefaults()
             oldArray.removeAll()
             dateFilter = !dateFilter
         }
@@ -139,6 +142,7 @@ class ViewController: UIViewController {
         
         inProcessFilterButtonPress = false
         endFilterButtonPress = false
+        dateFilter = false
         
         tableView.reloadData()
     }
@@ -166,6 +170,7 @@ class ViewController: UIViewController {
         
         newFilterButtonPress = false
         endFilterButtonPress = false
+        dateFilter = false
         
         tableView.reloadData()
     }
@@ -194,6 +199,7 @@ class ViewController: UIViewController {
         
         newFilterButtonPress = false
         inProcessFilterButtonPress = false
+        dateFilter = false
         
         tableView.reloadData()
     }
